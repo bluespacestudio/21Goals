@@ -1,4 +1,4 @@
-# GoalJack - Fantasy Football Reimagined
+# 21Goals - Fantasy Football Reimagined
 
 A modern fantasy football web app where you pick 4 Premier League players and track their combined goals to reach the target of 21 goals.
 
@@ -55,7 +55,7 @@ src/
 1. Clone the repository:
    ```bash
    git clone <repository-url>
-   cd goaljack
+   cd 21goals
    ```
 
 2. Install dependencies:
@@ -91,7 +91,7 @@ VITE_SPORTMONKS_API_KEY=your-sportmonks-api-key
 VITE_SPORTMONKS_BASE_URL=https://api.sportmonks.com/v3
 
 # App Configuration
-VITE_APP_NAME=GoalJack
+VITE_APP_NAME=21Goals
 VITE_APP_ENV=development
 ```
 

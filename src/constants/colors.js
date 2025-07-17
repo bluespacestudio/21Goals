@@ -1,4 +1,4 @@
-// GoalJack Brand Color Palette
+// 21Goals Brand Color Palette
 // Use these color references throughout the application
 
 export const BRAND_COLORS = {

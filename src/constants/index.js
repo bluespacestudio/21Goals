@@ -1,6 +1,6 @@
 // App Configuration
 export const APP_CONFIG = {
-  APP_NAME: 'GoalJack',
+  APP_NAME: '21Goals',
   APP_DESCRIPTION: 'Fantasy Football Reimagined',
   GOAL_TARGET: 21,
   MAX_PLAYERS_PER_SQUAD: 4,
@@ -67,6 +67,8 @@ export const ROUTES = {
   LEADERBOARDS: '/leaderboards',
   MINI_LEAGUES: '/leagues',
   SETTINGS: '/settings',
+  PRIVACY_POLICY: '/privacy-policy',
+  TERMS_OF_USE: '/terms-of-use',
 }
 
 // API Endpoints (for future use)
@@ -83,9 +85,9 @@ export const API_ENDPOINTS = {
 
 // Local Storage Keys
 export const STORAGE_KEYS = {
-  USER: 'goaljack_user',
-  SELECTED_PLAYERS: 'goaljack_selected_players',
-  SETTINGS: 'goaljack_settings',
+  USER: '21goals_user',
+  SELECTED_PLAYERS: '21goals_selected_players',
+  SETTINGS: '21goals_settings',
 }
 
 // Export color constants
