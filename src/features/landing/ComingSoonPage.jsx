@@ -424,11 +424,10 @@ export const ComingSoonPage = () => {
 
             {/* Example Scenario */}
             <div 
-              className="mt-16 relative bg-cover bg-center bg-no-repeat rounded-2xl p-8 border border-white/20 overflow-hidden"
-              style={{ backgroundImage: `url(${earlyAccessBg2})` }}
+              className="mt-16 relative rounded-2xl p-8 border border-white/20 overflow-hidden"
             >
               {/* Dark overlay for better visibility */}
-              <div className="absolute inset-0 bg-black/60 rounded-2xl"></div>
+              <div className="absolute inset-0 bg-green-800/90 rounded-2xl"></div>
               <div className="relative z-10">
                 <div className="text-center mb-8">
                   <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">Example Winning Strategy</h3>
