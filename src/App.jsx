@@ -1,22 +1,20 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { MainLayout } from './layouts/MainLayout'
-import { ComingSoonPage } from './features/landing/ComingSoonPage'
-import { PrivacyPolicyPage, TermsOfUsePage } from './features/legal'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { useEffect } from 'react'
 import { ScrollToTop } from './components/shared/ScrollToTop'
+import { AppRoutes } from './routes'
+import analytics from './lib/analytics'
 
 function App() {
+  // Initialize Google Analytics when app starts
+  useEffect(() => {
+    analytics.initialize()
+  }, [])
+
   return (
     <Router>
       <ScrollToTop />
       <div className="App">
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<ComingSoonPage />} />
-            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-            <Route path="terms-of-use" element={<TermsOfUsePage />} />
-            {/* Add more routes here as features are developed */}
-          </Route>
-        </Routes>
+        <AppRoutes />
       </div>
     </Router>
   )

@@ -90,10 +90,37 @@ VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 VITE_SPORTMONKS_API_KEY=your-sportmonks-api-key
 VITE_SPORTMONKS_BASE_URL=https://api.sportmonks.com/v3
 
+# Google Analytics Configuration
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+
 # App Configuration
 VITE_APP_NAME=21Goals
 VITE_APP_ENV=development
 ```
+
+## Google Analytics Integration
+
+The app includes comprehensive Google Analytics 4 (GA4) tracking to monitor user engagement and conversion metrics:
+
+### Tracked Events
+- **Page Views**: Automatic tracking for all route changes
+- **Waitlist Signups**: Conversion tracking when users join the waitlist
+- **Form Interactions**: Track when users focus on form fields
+- **Navigation**: Track clicks on footer navigation and scroll-to-section buttons
+- **Social Media**: Track clicks on social media links
+- **FAQ Interactions**: Track when users expand FAQ sections
+- **Launch Date Views**: Track engagement with countdown timer
+
+### Setup
+1. Create a Google Analytics 4 property
+2. Copy your Measurement ID (format: G-XXXXXXXXXX)
+3. Add it to your `.env` file as `VITE_GA_MEASUREMENT_ID`
+
+### Analytics Features
+- Debug mode in development environment
+- Conversion tracking for waitlist signups
+- Custom events for user engagement
+- Automatic page view tracking with React Router
 
 ## Available Scripts
 
@@ -116,6 +143,7 @@ VITE_APP_ENV=development
 - ✅ Project scaffolding and basic structure
 - ✅ Tailwind CSS setup and design system
 - ✅ Coming Soon page with email collection
+- ✅ Google Analytics 4 integration with comprehensive tracking
 - ⏳ Authentication system
 - ⏳ Player selection interface
 - ⏳ Dashboard and live tracking

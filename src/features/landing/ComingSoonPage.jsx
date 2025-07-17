@@ -5,9 +5,11 @@ import JSConfetti from 'js-confetti'
 import { waitlistService } from '../../lib/supabase'
 import { ROUTES } from '../../constants'
 import { LoadingScreen } from '../../components/shared/LoadingScreen'
+import analytics from '../../lib/analytics'
 import logo from '../../assets/logos/21Goals Icon White.png'
-import earlyAccessBg from '../../assets/bg/early_access_bg.jpg'
-import earlyAccessFooterBg from '../../assets/bg/early_access_footer_bg.jpg'
+import earlyAccessBg from '../../assets/bg/early_access_bg3.jpg'
+import earlyAccessMobileBg from '../../assets/bg/early_access_mobile_bg.jpg'
+import earlyAccessFooterBg from '../../assets/bg/footer_bg.jpg'
 import earlyAccessBg2 from '../../assets/bg/early_access_bg2.jpg';
 import LightThemeBg from '../../assets/bg/light_theme_bg.jpg';
 
@@ -69,6 +71,10 @@ export const ComingSoonPage = () => {
     }
     
     loadWaitlistCount()
+    
+    // Track page view
+    analytics.trackPageView('/coming-soon', '21Goals - Coming Soon')
+    analytics.trackLaunchDateView()
   }, [])
 
   const handleInputChange = (e) => {
@@ -94,6 +100,9 @@ export const ComingSoonPage = () => {
       )
       
       if (result.success) {
+        // Track successful waitlist signup
+        analytics.trackWaitlistSignup(formData.email, 'hero_section')
+        
         // Trigger confetti animation with 21Goals theme colors
         jsConfetti.addConfetti({
           confettiColors: ['#278E51', '#FFD93B', '#FFFFFF', '#4ade80', '#fcd34d'],
@@ -132,12 +141,21 @@ export const ComingSoonPage = () => {
     <LoadingScreen isLoading={isPageLoading}>
       <div className="min-h-screen bg-background">
       {/* Hero Section - Get Early Access */}
-      <section 
-        className="relative bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${earlyAccessBg})` }}
-      >
+      <section className="relative">
+        {/* Mobile & Tablet Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat lg:hidden"
+          style={{ backgroundImage: `url(${earlyAccessMobileBg})` }}
+        />
+        {/* Desktop Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden lg:block"
+          style={{ backgroundImage: `url(${earlyAccessBg})` }}
+        />
+        {/* Content Container */}
+        <div className="relative z-10">
         {/* Dark overlay for better visibility */}
-        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="absolute inset-0"></div>
         <div className="relative z-10 container mx-auto px-4 py-12">
           <div className="text-center max-w-2xl mx-auto">
             {/* Logo/Icon */}
@@ -146,7 +164,7 @@ export const ComingSoonPage = () => {
                 <img
                   src={logo}
                   alt="21Goals Logo"
-                  className="w-60 h-20 object-contain"
+                  className="w-48 h-16 object-contain"
                   draggable="false"
                 />
               </div>
@@ -162,8 +180,7 @@ export const ComingSoonPage = () => {
                 Get early access
               </h1>
               <p className="text-gray-100 text-lg leading-relaxed max-w-lg mx-auto drop-shadow-md">
-                The fantasy football game where less is more. Pick 4 players, stay under 21 goals, and win with the lowest total. 
-                Sign up to be notified when we launch!
+              The free-to-play fantasy game where football meets blackjack. Pick 4 players, hit 21 goals – but avoid going bust. Sign up to be notified when we launch!
               </p>
             </div>
 
@@ -178,6 +195,7 @@ export const ComingSoonPage = () => {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
+                      onFocus={() => analytics.trackFormInteraction('fullName', 'focus')}
                       placeholder="Full Name"
                       className="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                       required
@@ -190,6 +208,7 @@ export const ComingSoonPage = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
+                      onFocus={() => analytics.trackFormInteraction('email', 'focus')}
                       placeholder="Email"
                       className="w-full bg-white border border-gray-300 rounded-lg pl-11 pr-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                       required
@@ -247,8 +266,8 @@ export const ComingSoonPage = () => {
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center gap-1 text-white text-sm bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
-                  <Users className="w-4 h-4" />
+                <div className="flex items-center gap-1 text-white text-xs sm:text-sm bg-black/30 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2">
+                  <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span className="font-medium">Join {waitlistCount.toLocaleString()}+ others on the waitlist</span>
                 </div>
               </div>
@@ -288,6 +307,7 @@ export const ComingSoonPage = () => {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* How It Works Section */}
@@ -303,7 +323,7 @@ export const ComingSoonPage = () => {
               How 21Goals Works
             </h2>
             <p className="text-gray-600 text-center mb-16">
-              The fantasy football game where strategy beats luck. Follow these steps to master the art of controlled scoring.
+            The fantasy football game where less can be more. Follow these steps to master the art of controlled scoring.
             </p>
             
             {/* Step-by-Step Process */}
@@ -325,11 +345,11 @@ export const ComingSoonPage = () => {
                   <div className="flex-1 flex flex-col justify-start">
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">Pick 4 Players</h4>
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                      Choose 4 Premier League players from any teams. Pick wisely - efficient scorers who'll get 4-6 goals, not explosive strikers.
+                    Choose 4 Premier League players from any teams. Pick wisely – you’re aiming to score 21 goals, with all 4 players scoring.
                     </p>
                     <div className="flex items-center justify-center gap-1 text-xs text-primary-600 font-medium bg-primary-50 rounded-full px-3 py-2">
                       <AlertTriangle className="w-3 h-3" />
-                      Avoid goalkeepers & defenders
+                      Avoid goalkeepers
                     </div>
                   </div>
                 </div>
@@ -391,11 +411,11 @@ export const ComingSoonPage = () => {
                   <div className="flex-1 flex flex-col justify-start">
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">Win the Game</h4>
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                    Win by scoring the fewest goals — without going over 21. Among all players who survive, the lowest total wins. Less is more!
+                    Create a Mini League and invite your friends to join the challenge. Win by scoring closest to 21 goals, without going bust. 
                     </p>
                     <div className="flex items-center justify-center gap-1 text-xs text-secondary-600 font-medium bg-secondary-50 rounded-full px-3 py-2">
                       <Trophy className="w-3 h-3" />
-                      Lowest valid total wins
+                      Closest to 21 wins
                     </div>
                   </div>
                 </div>
@@ -412,14 +432,14 @@ export const ComingSoonPage = () => {
               <div className="relative z-10">
                 <div className="text-center mb-8">
                   <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">Example Winning Strategy</h3>
-                  <p className="text-gray-200 drop-shadow-md">Perfect squad with 18 total goals - efficient and safe</p>
+                  <p className="text-gray-200 drop-shadow-md">Perfect squad with 21 total goals – blackjack!</p>
                 </div>
               
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl p-5 text-center shadow-xl border border-white/30">
-                    <div className="text-3xl font-bold text-primary-600 mb-1">5</div>
+                    <div className="text-3xl font-bold text-primary-600 mb-1">9</div>
                     <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Goals</div>
-                    <div className="text-sm text-gray-700 mt-2 font-medium">Midfielder</div>
+                    <div className="text-sm text-gray-700 mt-2 font-medium">Striker</div>
                   </div>
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl p-5 text-center shadow-xl border border-white/30">
                     <div className="text-3xl font-bold text-primary-600 mb-1">4</div>
@@ -427,21 +447,21 @@ export const ComingSoonPage = () => {
                     <div className="text-sm text-gray-700 mt-2 font-medium">Winger</div>
                   </div>
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl p-5 text-center shadow-xl border border-white/30">
-                    <div className="text-3xl font-bold text-primary-600 mb-1">6</div>
+                    <div className="text-3xl font-bold text-primary-600 mb-1">5</div>
                     <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Goals</div>
-                    <div className="text-sm text-gray-700 mt-2 font-medium">Support Striker</div>
+                    <div className="text-sm text-gray-700 mt-2 font-medium">Midfielder</div>
                   </div>
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl p-5 text-center shadow-xl border border-white/30">
                     <div className="text-3xl font-bold text-primary-600 mb-1">3</div>
                     <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">Goals</div>
-                    <div className="text-sm text-gray-700 mt-2 font-medium">Attacking Mid</div>
+                    <div className="text-sm text-gray-700 mt-2 font-medium">Defender</div>
                   </div>
                 </div>
               
                               <div className="text-center mt-8">
                   <div className="inline-flex items-center gap-2 bg-secondary-400 text-gray-900 px-6 py-3 rounded-full font-semibold shadow-sm">
                     <Trophy className="w-5 h-5" />
-                    <span>Total: 18 Goals - Winner!</span>
+                    <span>Total: 21 Goals - Winner!</span>
                     <Sparkles className="w-4 h-4" />
                   </div>
                 </div>
@@ -461,19 +481,15 @@ export const ComingSoonPage = () => {
               {[
                 {
                   question: "What is 21Goals?",
-                  answer: "21Goals is a strategic fantasy football game where you pick 4 Premier League players and try to stay under 21 total goals. It's the opposite of traditional fantasy - you win by having the lowest valid total, not the highest."
+                  answer: "21Goals is a strategic fantasy game, where football meets blackjack. Pick 4 Premier League players and try to hit 21 goals – but don’t go bust!"
                 },
                 {
                   question: "How do I win?",
-                  answer: "Win by having the lowest total goals (≤21) among all players who aren't busted. You must stay under or at 21 goals AND ensure all 4 of your players score at least 1 goal each by season's end."
+                  answer: "Win by getting closest to 21 without going bust. You bust by scoring over 21 or if any of your players don’t score (steer clear of goalkeepers!)."
                 },
                 {
                   question: "What gets me busted?",
                   answer: "You're busted (eliminated) if: (1) Your total goals exceed 21, or (2) Any of your 4 players finishes the season with 0 goals. Busted players are moved to the bottom of all leaderboards."
-                },
-                {
-                  question: "What's the strategy?",
-                  answer: "Pick efficient scorers who will get 4-6 goals, not explosive strikers. Avoid goalkeepers and defenders who might not score. It's about precision - finding players who score just enough, not too many."
                 },
                 {
                   question: "When can I select my players?",
@@ -481,15 +497,18 @@ export const ComingSoonPage = () => {
                 },
                 {
                   question: "Is there a cost to play?",
-                  answer: "21Goals will be free to play with optional premium features. Join the waitlist to be notified of pricing details when we launch."
+                  answer: "21Goals will be free to play. Join the waitlist to be notified when the game is live!"
                 }
               ].map((faq, index) => (
                 <details key={index} className="group">
-                  <summary className="flex justify-between items-center cursor-pointer p-4 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors">
+                  <summary 
+                    className="flex justify-between items-center cursor-pointer p-4 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                    onClick={() => analytics.trackFAQInteraction(faq.question)}
+                  >
                     <span className="text-gray-900 font-medium">{faq.question}</span>
                     <ChevronDown className="text-secondary-500 w-5 h-5 group-open:rotate-180 transition-transform" />
                   </summary>
-                  <div className="p-4 bg-gray-50/80 rounded-b-lg border border-gray-200">
+                  <div className="p-4 bg-gray-100/80 rounded-b-lg">
                     <p className="text-gray-700">{faq.answer}</p>
                   </div>
                 </details>
@@ -506,7 +525,7 @@ export const ComingSoonPage = () => {
         style={{ backgroundImage: `url(${earlyAccessFooterBg})` }}
       >
         {/* Dark overlay for better visibility */}
-        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="absolute inset-0 bg-green-950/80"></div>
         <div className="relative z-10 container mx-auto px-4 py-16">
           {/* Main Footer Content */}
           <div className="grid md:grid-cols-3 gap-12 mb-12">
@@ -516,19 +535,20 @@ export const ComingSoonPage = () => {
                 <img
                   src={logo}
                   alt="21Goals Logo"
-                  className="w-40 h-20 object-contain"
+                  className="w-32 h-12 sm:w-40 sm:h-16 md:w-48 md:h-20 object-contain"
                   draggable="false"
                 />
               </div>
-                              <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                              <p className="text-white text-sm leading-relaxed mb-6">
                   The fantasy football game where strategy beats luck. Pick 4 players, stay under 21 goals, and win with the lowest total.
                 </p>
                 <div className="flex items-center gap-4">
-                  <span className="text-gray-200 text-sm">Follow us:</span>
+                  <span className="text-white text-sm">Follow us:</span>
                 <Link
                   to="#"
                   onClick={(e) => {
                     e.preventDefault();
+                    analytics.trackSocialClick('twitter');
                     window.open('https://x.com/xGPhilosophy', '_blank', 'noopener,noreferrer');
                   }}
                                       className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200 group border border-white/20"
@@ -545,32 +565,35 @@ export const ComingSoonPage = () => {
                 <nav className="space-y-4">
                   <button
                     onClick={() => {
+                      analytics.trackScrollToSection('early_access_form');
                       const element = document.querySelector('form') || document.querySelector('.bg-primary-50');
                       element?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="block text-gray-300 hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
+                    className="block text-white hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
                   >
                     Get Early Access
                   </button>
                   <button
                     onClick={() => {
-                      const element = document.querySelector('h3');
-                      if (element && element.textContent?.includes('How 21Goals Works')) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
+                      analytics.trackScrollToSection('how_it_works');
+                      const element = Array.from(document.querySelectorAll('h2')).find(el => 
+                        el.textContent?.includes('How 21Goals Works')
+                      );
+                      element?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="block text-gray-300 hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
+                    className="block text-white hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
                   >
                     How It Works
                   </button>
                   <button
                     onClick={() => {
-                      const element = Array.from(document.querySelectorAll('h3')).find(el => 
+                      analytics.trackScrollToSection('faq');
+                      const element = Array.from(document.querySelectorAll('h2')).find(el => 
                         el.textContent?.includes('Frequently asked questions')
                       );
                       element?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="block text-gray-300 hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
+                    className="block text-white hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
                   >
                     FAQ
                   </button>
@@ -585,14 +608,14 @@ export const ComingSoonPage = () => {
                     <Calendar className="w-5 h-5 text-secondary-400" />
                     <div>
                       <p className="text-white font-medium text-sm">Launch Date</p>
-                      <p className="text-gray-300 text-sm">August 2025</p>
+                      <p className="text-white text-sm">August 2025</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Users className="w-5 h-5 text-secondary-400" />
                     <div>
                       <p className="text-white font-medium text-sm">Waitlist</p>
-                      <p className="text-gray-300 text-sm">{waitlistCount.toLocaleString()}+ members</p>
+                      <p className="text-white text-sm">{waitlistCount.toLocaleString()}+ members</p>
                     </div>
                   </div>
                 </div>
@@ -600,19 +623,19 @@ export const ComingSoonPage = () => {
           </div>
 
                       {/* Bottom Section */}
-            <div className="border-t border-gray-600 pt-8">
+            <div className="border-t border-gray-400 pt-8">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 {/* Legal Links */}
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-6">
                   <Link
                     to={ROUTES.PRIVACY_POLICY}
-                    className="text-gray-300 hover:text-secondary-400 text-sm transition-colors duration-200"
+                    className="text-white hover:text-secondary-400 text-sm transition-colors duration-200"
                   >
                     Privacy Policy
                   </Link>
                   <Link
                     to={ROUTES.TERMS_OF_USE}
-                    className="text-gray-300 hover:text-secondary-400 text-sm transition-colors duration-200"
+                    className="text-white hover:text-secondary-400 text-sm transition-colors duration-200"
                   >
                     Terms of Use
                   </Link>
@@ -620,7 +643,7 @@ export const ComingSoonPage = () => {
 
                 {/* Copyright */}
                 <div className="text-center md:text-right">
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-white text-sm">
                   © 2025 21Goals. All rights reserved.
                   </p>
                 </div>

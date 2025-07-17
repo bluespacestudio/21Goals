@@ -97,13 +97,6 @@ export const LoadingScreen = ({ isLoading, children, minLoadTime = 2000 }) => {
           ))}
         </div>
       </div>
-
-      {/* Bottom Tagline */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <p className="text-gray-500 text-sm font-medium tracking-wider uppercase">
-          Fantasy Football Reimagined
-        </p>
-      </div>
     </div>
   )
 } 
