@@ -4,6 +4,7 @@ import { ChevronDown, Clock, Users, Mail, User, CheckCircle, Target, BarChart3, 
 import JSConfetti from 'js-confetti'
 import { waitlistService } from '../../lib/supabase'
 import { ROUTES } from '../../constants'
+import { LoadingScreen } from '../../components/shared/LoadingScreen'
 import logo from '../../assets/logos/21Goals Icon White.png'
 import earlyAccessBg from '../../assets/bg/early_access_bg.jpg'
 import earlyAccessFooterBg from '../../assets/bg/early_access_footer_bg.jpg'
@@ -25,6 +26,7 @@ export const ComingSoonPage = () => {
     minutes: 0,
     seconds: 0
   })
+  const [isPageLoading, setIsPageLoading] = useState(true)
 
   // Initialize confetti
   const jsConfetti = new JSConfetti()
@@ -53,9 +55,16 @@ export const ComingSoonPage = () => {
   // Load waitlist count on component mount
   useEffect(() => {
     const loadWaitlistCount = async () => {
-      const result = await waitlistService.getWaitlistCount()
-      if (result.success && result.count > 0) {
-        setWaitlistCount(result.count + 1000)
+      try {
+        const result = await waitlistService.getWaitlistCount()
+        if (result.success && result.count > 0) {
+          setWaitlistCount(result.count + 1000)
+        }
+      } catch (error) {
+        console.error('Error loading waitlist count:', error)
+      } finally {
+        // Page loading is complete after initial data load
+        setIsPageLoading(false)
       }
     }
     
@@ -120,7 +129,8 @@ export const ComingSoonPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <LoadingScreen isLoading={isPageLoading}>
+      <div className="min-h-screen bg-background">
       {/* Hero Section - Get Early Access */}
       <section 
         className="relative bg-cover bg-center bg-no-repeat"
@@ -619,5 +629,6 @@ export const ComingSoonPage = () => {
         </div>
       </footer>
     </div>
+    </LoadingScreen>
   )
 } 
