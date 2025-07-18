@@ -18,7 +18,6 @@ class Analytics {
         }
       })
       this.isInitialized = true
-      console.log('Google Analytics initialized with ID:', GA_MEASUREMENT_ID)
     } else {
       console.warn('Google Analytics not initialized: Missing or invalid measurement ID')
     }
