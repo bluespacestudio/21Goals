@@ -646,149 +646,101 @@ export const ComingSoonPage = () => {
         </section>
 
         {/* Footer */}
-        <footer className="relative border-t border-gray-700 overflow-hidden">
-  {/* Background Layer */}
+        <footer className="relative w-full overflow-hidden border-t border-gray-700">
+  {/* Universal Background Image */}
   <div className="absolute inset-0 z-0">
     <img
       src={footerBg}
       alt="Footer Background"
       className="w-full h-full object-cover"
-      loading="lazy"
+      loading="eager"
+      fetchpriority="high"
       decoding="async"
-      fetchpriority="low"
-      style={{ objectPosition: 'center top' }}
     />
+    {/* Dark overlay */}
     <div className="absolute inset-0 bg-green-950/80" />
   </div>
 
   {/* Foreground Content */}
-  <div className="relative z-10 container mx-auto px-3 sm:px-4 lg:px-6 py-10 sm:py-12 lg:py-16">
-    {/* Main Footer Content */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-10 lg:mb-12">
-      {/* Brand Section */}
-      <div className="sm:col-span-2 lg:col-span-1">
-        <div className="mb-4 sm:mb-6">
-          <img
-            src={logo}
-            alt="21Goals Logo"
-            className="w-28 h-10 sm:w-36 sm:h-12 lg:w-48 lg:h-20 object-contain"
-            draggable="false"
-          />
-        </div>
-        <p className="text-white text-sm leading-relaxed mb-4 sm:mb-6">
-          21Goals is the fantasy football game where strategy beats luck —
-          pick 4 Premier League players, aim to hit exactly 21 goals, make sure each one scores at least once, and win by getting closest to 21 without going bust.
+  <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-12 sm:py-16">
+    {/* Grid layout */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-10">
+      {/* Logo & Description */}
+      <div>
+        <img
+          src={logo}
+          alt="21Goals Logo"
+          className="w-32 sm:w-40 lg:w-48 h-auto object-contain mb-4"
+        />
+        <p className="text-white text-sm sm:text-base leading-relaxed">
+          21Goals is the fantasy football game where strategy beats luck. Pick 4 Premier League players, aim for exactly 21 goals — but avoid going bust!
         </p>
-        <div className="flex items-center gap-3 sm:gap-4">
-          <span className="text-white text-sm">Follow us:</span>
-          <Link
-            to="#"
-            onClick={(e) => {
-              e.preventDefault();
-              analytics.trackSocialClick("twitter");
-              window.open("https://x.com/xGPhilosophy", "_blank", "noopener,noreferrer");
-            }}
-            className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200 group border border-white/20"
-            aria-label="Follow us on X (Twitter)"
-          >
-            <Twitter className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:text-secondary-400" />
-          </Link>
-        </div>
       </div>
 
       {/* Quick Links */}
-      <div className="sm:col-span-1 lg:col-span-1">
-        <h4 className="text-white font-semibold text-base sm:text-lg mb-4 sm:mb-6">
-          Quick Links
-        </h4>
-        <nav className="space-y-3 sm:space-y-4">
-          <button
-            onClick={() => {
-              analytics.trackScrollToSection("early_access_form");
-              const element = document.querySelector("form") || document.querySelector(".bg-primary-50");
-              element?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="block text-white hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
-          >
-            Get Early Access
-          </button>
-          <button
-            onClick={() => {
-              analytics.trackScrollToSection("how_it_works");
-              const element = Array.from(document.querySelectorAll("h2")).find((el) =>
-                el.textContent?.includes("How to Play 21Goals")
-              );
-              element?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="block text-white hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
-          >
-            How to Play
-          </button>
-          <button
-            onClick={() => {
-              analytics.trackScrollToSection("faq");
-              const element = Array.from(document.querySelectorAll("h2")).find((el) =>
-                el.textContent?.includes("Frequently asked questions")
-              );
-              element?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="block text-white hover:text-secondary-400 text-sm transition-all duration-200 hover:translate-x-1 transform"
-          >
-            FAQ
-          </button>
-        </nav>
+      <div>
+        <h4 className="text-white font-semibold text-base sm:text-lg mb-4">Quick Links</h4>
+        <ul className="space-y-2">
+          <li>
+            <button
+              onClick={() =>
+                document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="text-white text-sm hover:text-secondary-400 transition"
+            >
+              Get Early Access
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                [...document.querySelectorAll("h2")].find((el) =>
+                  el.textContent?.includes("How to Play 21Goals")
+                )?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="text-white text-sm hover:text-secondary-400 transition"
+            >
+              How to Play
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                [...document.querySelectorAll("h2")].find((el) =>
+                  el.textContent?.includes("Frequently asked questions")
+                )?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="text-white text-sm hover:text-secondary-400 transition"
+            >
+              FAQ
+            </button>
+          </li>
+        </ul>
       </div>
 
       {/* Launch Info */}
-      <div className="sm:col-span-1 lg:col-span-1">
-        <h4 className="text-white font-semibold text-base sm:text-lg mb-4 sm:mb-6">
-          Coming Soon
-        </h4>
-        <div className="space-y-3 sm:space-y-4">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400" />
-            <div>
-              <p className="text-white font-medium text-sm">Launch Date</p>
-              <p className="text-white text-sm">August 2025</p>
-            </div>
+      <div>
+        <h4 className="text-white font-semibold text-base sm:text-lg mb-4">Coming Soon</h4>
+        <div className="space-y-3 text-sm text-white">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-secondary-400" />
+            <span>Launch: August 2025</span>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-secondary-400" />
-            <div>
-              <p className="text-white font-medium text-sm">Waitlist</p>
-              <p className="text-white text-sm">
-                {waitlistCount.toLocaleString()}+ members
-              </p>
-            </div>
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-secondary-400" />
+            <span>Waitlist: {waitlistCount.toLocaleString()}+ members</span>
           </div>
         </div>
       </div>
     </div>
 
-    {/* Bottom Section */}
-    <div className="border-t border-gray-400 pt-6 sm:pt-8">
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
-        {/* Legal Links */}
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
-          <Link
-            to={ROUTES.PRIVACY_POLICY}
-            className="text-white hover:text-secondary-400 text-sm transition-colors duration-200"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            to={ROUTES.TERMS_OF_USE}
-            className="text-white hover:text-secondary-400 text-sm transition-colors duration-200"
-          >
-            Terms of Use
-          </Link>
-        </div>
-
-        {/* Copyright */}
-        <div className="text-center sm:text-right">
-          <p className="text-white text-sm">© 2025 21Goals. All rights reserved.</p>
-        </div>
+    {/* Bottom Footer Row */}
+    <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/20 pt-6 mt-6">
+      <div className="flex flex-wrap justify-center sm:justify-start gap-4 text-sm text-white">
+        <Link to="/privacy-policy" className="hover:text-secondary-400">Privacy Policy</Link>
+        <Link to="/terms-of-use" className="hover:text-secondary-400">Terms of Use</Link>
       </div>
+      <p className="text-white text-sm mt-4 sm:mt-0">© 2025 21Goals. All rights reserved.</p>
     </div>
   </div>
 </footer>
