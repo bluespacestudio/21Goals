@@ -646,105 +646,127 @@ export const ComingSoonPage = () => {
         </section>
 
         {/* Footer */}
-        <footer className="relative w-full overflow-hidden border-t border-gray-700">
-  {/* Universal Background Image */}
-  <div className="absolute inset-0 z-0">
+        <footer className="relative border-t border-gray-700">
+          {/* Background for large screens only */}
+  <div className="hidden lg:block absolute inset-0 w-full h-full z-0">
     <img
       src={footerBg}
       alt="Footer Background"
       className="w-full h-full object-cover"
       loading="eager"
       fetchpriority="high"
-      decoding="async"
     />
-    {/* Dark overlay */}
-    <div className="absolute inset-0 bg-green-950/80" />
+    <div className="absolute inset-0 bg-green-950/80"></div>
   </div>
 
-  {/* Foreground Content */}
-  <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-12 sm:py-16">
-    {/* Grid layout */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-10">
-      {/* Logo & Description */}
-      <div>
-        <img
-          src={logo}
-          alt="21Goals Logo"
-          className="w-32 sm:w-40 lg:w-48 h-auto object-contain mb-4"
-        />
-        <p className="text-white text-sm sm:text-base leading-relaxed">
-          21Goals is the fantasy football game where strategy beats luck. Pick 4 Premier League players, aim for exactly 21 goals — but avoid going bust!
-        </p>
-      </div>
+  {/* Background color only for small & medium devices */}
+  <div className="block lg:hidden absolute inset-0 bg-green-950 z-0"></div>
 
-      {/* Quick Links */}
-      <div>
-        <h4 className="text-white font-semibold text-base sm:text-lg mb-4">Quick Links</h4>
-        <ul className="space-y-2">
-          <li>
-            <button
-              onClick={() =>
-                document.querySelector("form")?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="text-white text-sm hover:text-secondary-400 transition"
-            >
-              Get Early Access
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() =>
-                [...document.querySelectorAll("h2")].find((el) =>
-                  el.textContent?.includes("How to Play 21Goals")
-                )?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="text-white text-sm hover:text-secondary-400 transition"
-            >
-              How to Play
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() =>
-                [...document.querySelectorAll("h2")].find((el) =>
-                  el.textContent?.includes("Frequently asked questions")
-                )?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="text-white text-sm hover:text-secondary-400 transition"
-            >
-              FAQ
-            </button>
-          </li>
-        </ul>
-      </div>
+          {/* Foreground Content */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-12 sm:py-16">
+            {/* Grid layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-10">
+              {/* Logo & Description */}
+              <div>
+                <img
+                  src={logo}
+                  alt="21Goals Logo"
+                  className="w-32 sm:w-40 lg:w-48 h-auto object-contain mb-4"
+                />
+                <p className="text-white text-sm sm:text-base leading-relaxed">
+                  21Goals is the fantasy football game where strategy beats
+                  luck. Pick 4 Premier League players, aim for exactly 21 goals
+                  — but avoid going bust!
+                </p>
+              </div>
 
-      {/* Launch Info */}
-      <div>
-        <h4 className="text-white font-semibold text-base sm:text-lg mb-4">Coming Soon</h4>
-        <div className="space-y-3 text-sm text-white">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-secondary-400" />
-            <span>Launch: August 2025</span>
+              {/* Quick Links */}
+              <div>
+                <h4 className="text-white font-semibold text-base sm:text-lg mb-4">
+                  Quick Links
+                </h4>
+                <ul className="space-y-2">
+                  <li>
+                    <button
+                      onClick={() =>
+                        document
+                          .querySelector("form")
+                          ?.scrollIntoView({ behavior: "smooth" })
+                      }
+                      className="text-white text-sm hover:text-secondary-400 transition"
+                    >
+                      Get Early Access
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() =>
+                        [...document.querySelectorAll("h2")]
+                          .find((el) =>
+                            el.textContent?.includes("How to Play 21Goals")
+                          )
+                          ?.scrollIntoView({ behavior: "smooth" })
+                      }
+                      className="text-white text-sm hover:text-secondary-400 transition"
+                    >
+                      How to Play
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() =>
+                        [...document.querySelectorAll("h2")]
+                          .find((el) =>
+                            el.textContent?.includes(
+                              "Frequently asked questions"
+                            )
+                          )
+                          ?.scrollIntoView({ behavior: "smooth" })
+                      }
+                      className="text-white text-sm hover:text-secondary-400 transition"
+                    >
+                      FAQ
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Launch Info */}
+              <div>
+                <h4 className="text-white font-semibold text-base sm:text-lg mb-4">
+                  Coming Soon
+                </h4>
+                <div className="space-y-3 text-sm text-white">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-secondary-400" />
+                    <span>Launch: August 2025</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-secondary-400" />
+                    <span>
+                      Waitlist: {waitlistCount.toLocaleString()}+ members
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Footer Row */}
+            <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/20 pt-6 mt-6">
+              <div className="flex flex-wrap justify-center sm:justify-start gap-4 text-sm text-white">
+                <Link to="/privacy-policy" className="hover:text-secondary-400">
+                  Privacy Policy
+                </Link>
+                <Link to="/terms-of-use" className="hover:text-secondary-400">
+                  Terms of Use
+                </Link>
+              </div>
+              <p className="text-white text-sm mt-4 sm:mt-0">
+                © 2025 21Goals. All rights reserved.
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-secondary-400" />
-            <span>Waitlist: {waitlistCount.toLocaleString()}+ members</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* Bottom Footer Row */}
-    <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/20 pt-6 mt-6">
-      <div className="flex flex-wrap justify-center sm:justify-start gap-4 text-sm text-white">
-        <Link to="/privacy-policy" className="hover:text-secondary-400">Privacy Policy</Link>
-        <Link to="/terms-of-use" className="hover:text-secondary-400">Terms of Use</Link>
-      </div>
-      <p className="text-white text-sm mt-4 sm:mt-0">© 2025 21Goals. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-
+        </footer>
       </div>
     </LoadingScreen>
   );
