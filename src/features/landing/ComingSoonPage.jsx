@@ -499,7 +499,7 @@ export const ComingSoonPage = () => {
                       </h4>
                       <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
                         Create a Mini League and challenge your friends. The
-                        winner? Whoever gets closest to 21 – without busting.
+                        winner? Whoever gets closest to 21 without busting.
                         The forfeits? You decide.
                       </p>
                       <div className="flex items-center justify-center gap-1 text-xs text-secondary-600 font-medium bg-secondary-50 rounded-full px-2 sm:px-3 py-1.5 sm:py-2">
@@ -648,19 +648,19 @@ export const ComingSoonPage = () => {
         {/* Footer */}
         <footer className="relative border-t border-gray-700">
           {/* Background for large screens only */}
-  <div className="hidden lg:block absolute inset-0 w-full h-full z-0">
-    <img
-      src={footerBg}
-      alt="Footer Background"
-      className="w-full h-full object-cover"
-      loading="eager"
-      fetchpriority="high"
-    />
-    <div className="absolute inset-0 bg-green-950/80"></div>
-  </div>
+          <div className="hidden lg:block absolute inset-0 w-full h-full z-0">
+            <img
+              src={footerBg}
+              alt="Footer Background"
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div className="absolute inset-0 bg-green-950/80"></div>
+          </div>
 
-  {/* Background color only for small & medium devices */}
-  <div className="block lg:hidden absolute inset-0 bg-green-950 z-0"></div>
+          {/* Background color only for small & medium devices */}
+          <div className="block lg:hidden absolute inset-0 bg-green-950 z-0"></div>
 
           {/* Foreground Content */}
           <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-12 sm:py-16">
