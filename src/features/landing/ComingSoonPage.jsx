@@ -499,8 +499,8 @@ export const ComingSoonPage = () => {
                       </h4>
                       <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
                         Create a Mini League and challenge your friends. The
-                        winner? Whoever gets closest to 21 without busting.
-                        The forfeits? You decide.
+                        winner? Whoever gets closest to 21 without busting. The
+                        forfeits? You decide.
                       </p>
                       <div className="flex items-center justify-center gap-1 text-xs text-secondary-600 font-medium bg-secondary-50 rounded-full px-2 sm:px-3 py-1.5 sm:py-2">
                         <Trophy className="w-3 h-3" />
@@ -665,7 +665,7 @@ export const ComingSoonPage = () => {
           {/* Foreground Content */}
           <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-12 sm:py-16">
             {/* Grid layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-8">
               {/* Logo & Description */}
               <div>
                 <img
@@ -678,6 +678,25 @@ export const ComingSoonPage = () => {
                   luck. Pick 4 Premier League players, aim for exactly 21 goals
                   — but avoid going bust!
                 </p>
+                <div className="border-t border-white/20 my-6"></div>
+
+                <div className="flex items-center gap-4">
+                  <span className="text-white text-sm font-medium">
+                    Follow Us:
+                  </span>
+                  <a
+                    href="https://x.com/xGPhilosophy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => analytics.trackSocialClick("twitter")}
+                    className="group inline-flex items-center justify-center rounded-full bg-white/10 hover:bg-secondary-400/20 transition-colors duration-200 w-10 h-10"
+                    aria-label="Follow us on Twitter"
+                  >
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary-500 group-hover:bg-secondary-400 transition-colors duration-200">
+                      <Twitter className="w-5 h-5 text-white" />
+                    </span>
+                  </a>
+                </div>
               </div>
 
               {/* Quick Links */}
@@ -761,6 +780,7 @@ export const ComingSoonPage = () => {
                   Terms of Use
                 </Link>
               </div>
+
               <p className="text-white text-sm mt-4 sm:mt-0">
                 © 2025 21Goals. All rights reserved.
               </p>
